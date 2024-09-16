@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Navbar from "../components/Navbar.jsx";
+import checkAuth from "../components/checkAuth.jsx";
+import {useNavigate} from "react-router-dom";
 
 function Form() {
     const [error, setError] = useState("");
@@ -44,6 +46,10 @@ function Form() {
             setResponseJson(null); // Clear response JSON on error
         }
     };
+
+    if(!AuthCheck){
+        return null;
+    }
 
     return (
         <>
@@ -93,6 +99,20 @@ function Form() {
 }
 
 function Register() {
+    const [AuthCheck, setAuthCheck] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(checkAuth){
+            navigate('/')
+        }
+        setAuthCheck(true)
+    }, [navigate]);
+
+    if(!AuthCheck){
+        return null
+    }
+
     return (
         <>
             <Navbar calledFrom={1} />

@@ -1,5 +1,7 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from "../components/Navbar.jsx";
+import checkAuth from "../components/checkAuth.jsx";
 
 
 function Form() {
@@ -43,6 +45,7 @@ function Form() {
             setResponseJson(null)
         }
     }
+
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -78,6 +81,19 @@ function Form() {
 
 
 function Login() {
+    const [AuthCheck, setAuthCheck] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(checkAuth){
+            navigate('/')
+        }
+        setAuthCheck(true)
+    }, [navigate]);
+
+    if(!AuthCheck){
+        return null;
+    }
 
     return (
         <>

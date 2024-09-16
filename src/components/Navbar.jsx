@@ -1,8 +1,9 @@
-import {useState} from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import checkAuth from "./checkAuth.jsx";
 
 function PresetNav({children}){
+
     const Nav = styled.nav`
         display: flex;
         flex-direction: row;
@@ -22,6 +23,10 @@ function PresetNav({children}){
 function Navbar({ calledFrom = 0 }) {
     //the number corresponds to what where it is called from
     // 0 = home page, 1 = register, 2 = login, 3 = signed in
+
+    if(checkAuth){
+        calledFrom = 3
+    }
 
     switch (calledFrom){
         case 0: return <PresetNav><Link to="/register">Login/Register</Link></PresetNav>
