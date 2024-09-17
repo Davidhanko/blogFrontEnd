@@ -28,6 +28,7 @@ function Form() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
+
                 },
                 body: urlEncodedData
             })
@@ -81,18 +82,24 @@ function Form() {
 
 
 function Login() {
-    const [AuthCheck, setAuthCheck] = useState(false)
+    const [authChecked, setAuthChecked] = useState(false);
+    const [isAuth, setIsAuth] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(checkAuth){
-            navigate('/')
-        }
-        setAuthCheck(true)
-    }, [navigate]);
+        async function check(){
+            const auth = await checkAuth()
+            setIsAuth(auth)
+            setAuthChecked(true)}
+        check()
+    }, []);
 
-    if(!AuthCheck){
+    if(!authChecked){
         return null;
+    }
+
+    if(isAuth){
+        navigate("/")
     }
 
     return (

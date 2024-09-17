@@ -47,10 +47,6 @@ function Form() {
         }
     };
 
-    if(!AuthCheck){
-        return null;
-    }
-
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -99,18 +95,24 @@ function Form() {
 }
 
 function Register() {
-    const [AuthCheck, setAuthCheck] = useState(false)
+    const [authChecked, setAuthChecked] = useState(false);
+    const [isAuth, setIsAuth] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(checkAuth){
-            navigate('/')
-        }
-        setAuthCheck(true)
-    }, [navigate]);
+        async function check(){
+            const auth = await checkAuth()
+            setIsAuth(auth)
+            setAuthChecked(true)}
+        check()
+    }, []);
 
-    if(!AuthCheck){
-        return null
+    if(!authChecked){
+        return null;
+    }
+
+    if(isAuth){
+        navigate("/")
     }
 
     return (

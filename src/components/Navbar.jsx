@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import checkAuth from "./checkAuth.jsx";
+import {useEffect, useState} from "react";
 
 function PresetNav({children}){
 
@@ -23,8 +24,22 @@ function PresetNav({children}){
 function Navbar({ calledFrom = 0 }) {
     //the number corresponds to what where it is called from
     // 0 = home page, 1 = register, 2 = login, 3 = signed in
+    const [authChecked, setAuthChecked] = useState(false);
+    const [isAuth, setIsAuth] = useState(false)
 
-    if(checkAuth){
+    useEffect(() => {
+        async function check(){
+        const auth = await checkAuth()
+        setIsAuth(auth)
+        setAuthChecked(true)}
+        check()
+    }, []);
+
+    if(!authChecked){
+        return <div><h1>Loading</h1></div>
+    }
+
+    if(isAuth){
         calledFrom = 3
     }
 
