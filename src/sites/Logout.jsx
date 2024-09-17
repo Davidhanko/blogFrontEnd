@@ -1,5 +1,6 @@
 import {useState, useEffect, useRef} from 'react'
 import { useNavigate } from "react-router-dom";
+import Center from "../components/Center.jsx";
 
 function Logout() {
     const [logoutComplete, setLogoutComplete] = useState(false)
@@ -21,7 +22,7 @@ function Logout() {
     }
     else{
       localStorage.removeItem("token")
-      throw new Error("Error logging out")
+      throw new Error("Error logging out") //makes no sense xD
     }})
   });
 
@@ -31,12 +32,17 @@ function Logout() {
         navigate('/')
       }, 3000)
     }
+    else{
+      timerRef.current = setTimeout(() => {
+        navigate('/')
+      }, 5000)
+    }
   }, [logoutComplete, navigate]);
 
     if(!logoutComplete){
       return <>
         <div>
-          <h1>Logging out, please wait</h1>
+          <Center><h1>Logging out, please wait</h1></Center>
         </div>
       </>
     }
@@ -44,7 +50,7 @@ function Logout() {
     return (
         <>
           <div>
-            <h1>Logged out successfully</h1>
+            <Center><h1>Logged out successfully</h1></Center>
           </div>
         </>
     )

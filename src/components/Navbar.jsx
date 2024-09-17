@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import checkAuth from "./checkAuth.jsx";
-import {useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
+import Center from "./Center.jsx";
 
 function PresetNav({children}){
 
     const Nav = styled.nav`
+        position: sticky;
+        top: 0;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -21,7 +24,9 @@ function PresetNav({children}){
     )
 }
 
-function Navbar({ calledFrom = 0 }) {
+
+
+function Navbar({ calledFrom = 0}) { //Also responsible for deleting the token, "logout", from local storage if it is expired
     //the number corresponds to what where it is called from
     // 0 = home page, 1 = register, 2 = login, 3 = signed in
     const [authChecked, setAuthChecked] = useState(false);
@@ -35,8 +40,8 @@ function Navbar({ calledFrom = 0 }) {
         check()
     }, []);
 
-    if(!authChecked){
-        return <div><h1>Loading</h1></div>
+    if(authChecked && !isAuth){
+        localStorage.removeItem("token")
     }
 
     if(isAuth){

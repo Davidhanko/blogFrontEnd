@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 async function CheckAuth() {
 
       const token = localStorage.getItem("token");

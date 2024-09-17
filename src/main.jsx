@@ -6,6 +6,7 @@ import {createBrowserRouter, Route, RouterProvider} from "react-router-dom";
 import Register from "./sites/Register.jsx";
 import Login from "./sites/Login.jsx";
 import Logout from "./sites/Logout.jsx";
+import Blogs from "./sites/Blogs.jsx";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     {
         path: 'logout',
         element: <Logout/>
+    },
+    {
+        path: 'blogs',
+        element: <Blogs/>
     }
 ])
 
