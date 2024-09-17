@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import Session from 'react-session-api';
 
 function UserProfile() {
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     async function fetchUser() {
@@ -18,6 +19,7 @@ function UserProfile() {
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
+          Session.set('userData', userData);
           setLoading(false)
         } else {
           console.error('Failed to fetch user data');
@@ -34,12 +36,15 @@ function UserProfile() {
     return null
   }
 
+  const items = Session.get('userData')
+
   if(!loading){
   return (
       <div>
         <h1>User Profile</h1>
         <h2>Username: {user.userData.username}</h2>
         <h2>Email: {user.userData.email}</h2>
+
       </div>
   );
   }

@@ -49,11 +49,11 @@ function Navbar({ calledFrom = 0}) { //Also responsible for deleting the token, 
     }
 
     switch (calledFrom){
-        case 0: return <PresetNav><Link to="/register">Login/Register</Link></PresetNav>
-        case 1: return <PresetNav><Link to="/login">Login</Link></PresetNav>
-        case 2: return <PresetNav><Link to="/register">Register</Link></PresetNav>
+        case 0: return <PresetNav><Link to="/register">Sign in</Link></PresetNav>
+        case 1: return <PresetNav><Link to="/login">Log in</Link></PresetNav>
+        case 2: return <PresetNav><Link to="/register">Sign in</Link></PresetNav>
         case 3: return <PresetNav><Link to="/logout">Logout</Link></PresetNav>
-        default: return <PresetNav><Link to="/register">Login/Register</Link></PresetNav>
+        default: return <PresetNav><Link to="/register">Sign in</Link></PresetNav>
     }
 }
 
